@@ -31,6 +31,7 @@ target_metadata = Base.metadata
 load_dotenv(dotenv_path=".env.dev")
 config.set_main_option("sqlalchemy.url", os.getenv("POSTGRES_URL"))
 
+
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 

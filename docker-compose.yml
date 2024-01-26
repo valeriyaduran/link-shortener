@@ -2,6 +2,7 @@ version: "3.1"
 
 services:
   app:
+    container_name: link-shortener-fastapi
     build:
       context: .
     restart: always

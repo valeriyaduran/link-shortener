@@ -1,13 +1,14 @@
 from pydantic import BaseModel, field_validator
+from starlette.status import HTTP_400_BAD_REQUEST
 
-# from src.handlers.exception_handler import EmptyOriginLinkException
+from src.handlers.exception_handler import EmptyOriginLinkException
 
 
 class Link(BaseModel):
     origin_link: str
 
-    # @field_validator("origin_link, shortened_link")
-    # def build_name_must_not_be_empty(cls, field_value: str) -> str:
-    #     if not field_value:
-    #         raise EmptyOriginLinkException(message="Link must not be empty", status_code=400)
-    #     return field_value
+    @field_validator("origin_link")
+    def link_must_not_be_empty(cls, origin_link: str) -> str:
+        if not origin_link:
+            raise EmptyOriginLinkException(message="Link must not be empty", status_code=HTTP_400_BAD_REQUEST)
+        return origin_link

@@ -2,11 +2,18 @@ from src.config import session_maker
 from src.models.link import Link
 
 
-async def get_link_from_links_db(link: str) -> str | None:
+async def get_shortened_link_from_links_db(origin_link: str) -> str | None:
     with session_maker() as session:
-        link_obj = session.query(Link).filter(Link.origin_link == link).all()
+        link_obj = session.query(Link).filter(Link.origin_link == origin_link).all()
         if link_obj:
             return link_obj[0].shortened_link
+
+
+async def get_origin_link_from_links_db(link_id: str) -> str | None:
+    with session_maker() as session:
+        link_obj = session.query(Link).filter(Link.link_id == link_id).all()
+        if link_obj:
+            return link_obj[0].origin_link
 
 
 async def insert_links_data_into_links_db(links_data: dict) -> None:

@@ -12,11 +12,11 @@ Preconditions:
 
 ### Working with the service:
 
-1) To get a shortened link send a POST request containing the origin_link.
+1) To create a shortened link send POST request containing the origin_link.
 
 **Request example**:
 ```
-curl --location 'http://0.0.0.0:8080/shortened_link' \
+curl --location 'http://0.0.0.0:8080/api/v1/shortened_link' \
 --header 'Content-Type: application/json' \
 --data '{"origin_link": "https://docs-python.ru/standart-library/modul-time-python/funktsija-process-time-modulja-time/"}'
 ```
@@ -25,21 +25,34 @@ curl --location 'http://0.0.0.0:8080/shortened_link' \
 "http://shortener.tt/BUwGAZczgK"
 
 ------------------------
-200 status code returned
+201 status code returned
 ```
 
-2) To delete a shortened link and related long link send a DELETE request containing the link_id in the request url.
+2) To delete a shortened link and related origin link send DELETE request containing the link_id in the request url.
 
 **Request example**:
 ```
-curl --location --request DELETE 'http://0.0.0.0:8080/shortened_link/BUwGAZczgK' \
+curl --location --request DELETE 'http://0.0.0.0:8080/api/v1/shortened_link/SPOkFYdmId' \
 --data ''
 ```
 **Response example**:
 ```
 ""
 ------------------------
-204 status code returned
+200 status code returned
+```
+
+3) To get the origin link by shortened link id send GET request containing the link_id in the request url.
+
+**Request example**:
+```
+curl --location 'http://0.0.0.0:8080/api/v1/ruWpWsITQY'
+```
+**Response example**:
+```
+"https://www.jetbrains.com/help/pycharm/package-installation-issues.html"
+------------------------
+307 status code returned
 ```
 *Note: db credentials are stored in .env.dev (you can check .env.dev.example)*
 
